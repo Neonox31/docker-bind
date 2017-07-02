@@ -1,0 +1,11 @@
+version: '2'
+services:
+  bind:
+    image: resystit/bind9:latest
+    restart: always
+    ports:
+      - "53:53"
+      - "53:53/udp"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/docker/bind:/etc/bind
