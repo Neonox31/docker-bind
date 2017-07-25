@@ -2,6 +2,7 @@ version: '2'
 services:
   bind:
     image: resystit/bind9:latest
+    container_name: bind
     restart: always
     ports:
       - "192.168.10.251:53:53"
