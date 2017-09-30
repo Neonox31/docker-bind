@@ -5,8 +5,21 @@ services:
     container_name: bind
     restart: always
     ports:
-      - "192.168.10.251:53:53"
-      - "192.168.10.251:53:53/udp"
+      - "192.168.10.253:53:53"
+      - "192.168.10.253:53:53/udp"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /srv/docker/bind:/etc/bind
+  bind-backup:
+    image: tecnativa/duplicity:latest
+    container_name: bind-backup
+    restart: always
+    hostname: bind-backup
+    volumes:
+      - /media/ops/backups/docker/bind:/backup
+    volumes_from:
+      - bind:ro
+    environment:
+        DST: file:///backup
+        SRC: /etc/bind
+        OPTIONS: --no-encryption
